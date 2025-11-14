@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Involved - Hope for All Charity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/tagline_font.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/get-involved.css">
+    <!-- Tom Select for enhanced searchable dropdowns -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+</head>
+<body>
+    <!-- Language Selector -->
+    <div class="language-selector" role="navigation" aria-label="Language selector">
+        <div class="language-dropdown">
+            <button class="language-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                <img src="images/us.svg" alt="English" class="flag-icon" data-lang="en" />
+                <span class="dropdown-arrow">▼</span>
+            </button>
+            <ul class="language-dropdown-menu" role="menu">
+                <li role="none">
+                    <button class="language-option" role="menuitem" data-lang="en" title="English">
+                        <img src="images/us.svg" alt="English" class="flag-icon" />
+                    </button>
+                </li>
+                <li role="none">
+                    <button class="language-option" role="menuitem" data-lang="de" title="Deutsch">
+                        <img src="images/de.svg" alt="Deutsch" class="flag-icon" />
+                    </button>
+                </li>
+                <li role="none">
+                    <button class="language-option" role="menuitem" data-lang="es" title="Español">
+                        <img src="images/es.svg" alt="Español" class="flag-icon" />
+                    </button>
+                </li>
+                <li role="none">
+                    <button class="language-option" role="menuitem" data-lang="pt" title="Português">
+                        <img src="images/pt.svg" alt="Português" class="flag-icon" />
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">
+            <img src="images/logo3.png" class="logo-img logo-icon" alt="Shared Hope logo" />
+            <span class="logo-text">SHARE HOPES</span>
+        </div>
+        <p class="tagline">Sowing love; reaping change.</p>
+    </header>
+    
+    <!-- Back to Home link -->
+    <nav class="back-home" aria-label="Back to home">
+        <a href="index.html" class="back-home-link">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+            <span id="back-home-link">Back to Home</span>
+        </a>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar">
+            
+            <!-- Removed Personal Details from progress; now two steps -->
+            <div class="progress-step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label" id="progress-donation">Donation</div>
+            </div>
+            <div class="progress-step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label" id="progress-volunteer">Volunteer</div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <div class="tabs">
+            <div class="tab active" data-tab="donation" id="tab-donation">Donation</div>
+            <div class="tab" data-tab="volunteer" id="tab-volunteer">Volunteer</div>
+        </div>
+            
+            <form id="involvement-form">
+                
+                
+                <!-- Donation Tab -->
+                <div class="tab-content active" id="donation-tab">
+                    <div class="form-section">
+                       
+                        <div class="form-group full-width">
+                            <div class="donation-card" role="region" aria-label="Stripe Donation">
+                                <div class="donation-card-body">
+                                    <img src="images/payment_link_qrcode.png" alt="Stripe Payment Link QR Code" class="stripe-payment-qr" />
+                                    <div id="donation-qr-caption" class="donation-qr-caption">Scan to donate</div>
+                                </div>
+                                <div id="donation-or-divider" class="donation-or-divider">or</div>
+                                
+                                <div class="donation-card-footer">
+                                    <div id="donation-helper-text" class="donation-helper-text">Click to make a donation</div>
+                                    <a href="https://donate.stripe.com/3cIbIVeao47p9M2fUpeEo00" target="_blank" rel="noopener" class="stripe-payment-link" id="stripe-payment-link">
+                                        Donate
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Volunteer Tab -->
+                <div class="tab-content" id="volunteer-tab">
+                    <!-- Moved Personal Information into Volunteer Tab -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-user"></i> Personal Information
+                        </h2>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName" id="label-firstname">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="lastName" id="label-lastname">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email" id="label-email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone" id="label-phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" placeholder="Your phone number">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="address" id="label-address">Address</label>
+                                <input type="text" id="address" name="address" placeholder="Your address">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="country" id="label-country">Country</label>
+                                <select id="country" name="country">
+                                    <option value="">Select Country</option>
+                                    <option value="us">United States</option>
+                                    <option value="uk">United Kingdom</option>
+                                    <option value="ca">Canada</option>
+                                    <option value="au">Australia</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="postcode" id="label-postcode">Postcode</label>
+                                <input type="text" id="postcode" name="postcode" placeholder="Your postcode">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="city" id="label-city">City</label>
+                                <select id="city" name="city">
+                                    <option value="" disabled selected>Select City</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-hand-holding-heart"></i> <span id="volunteer-opportunities-title">Volunteer Opportunities</span>
+                        </h2>
+                        
+                        <div class="form-group full-width">
+                            <label id="volunteer-interest-label">I'm interested in volunteering:</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="volunteer-local" name="volunteerType" value="local">
+                                    <label id="volunteer-local-label" for="volunteer-local">At local events</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="volunteer-admin" name="volunteerType" value="admin">
+                                    <label id="volunteer-admin-label" for="volunteer-admin">Administrative support</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-note">
+                        <p><strong id="form-note-label">Note:</strong> <span id="form-note-text">Your personal information will be kept confidential and used only for the purposes of processing your donation and communicating with you about our work. You can unsubscribe from communications at any time.</span></p>
+                    </div>
+                    
+                    <div class="navigation-buttons">
+                        <button id="btn-previous-donation" type="button" class="btn btn-secondary prev-tab" data-prev="donation">Previous: Donation</button>
+                        <button id="submit-involvement" type="submit" class="btn">Submit Your Involvement Form</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="success-modal" class="modal-overlay" aria-hidden="true">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="success-modal-title">
+                <div class="modal-content">
+                    <h3 id="success-modal-title" class="modal-title">Thank you!</h3>
+                    <p id="success-modal-message">Thank you for your interest in getting involved! We will be in touch soon.</p>
+                    <div class="modal-actions">
+                        <button id="modal-close-btn" type="button" class="btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sending Progress Modal -->
+        <div id="sending-modal" class="modal-overlay" aria-hidden="true">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="sending-modal-title">
+                <div class="modal-content">
+                    <h3 id="sending-modal-title" class="modal-title">Sending...</h3>
+                    <div class="progress" aria-hidden="false" aria-live="polite">
+                        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+                    </div>
+                    <p id="sending-modal-message">Please wait while we send your involvement form.</p>
+                </div>
+            </div>
+        </div>
+        
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-inner">
+            <div class="footer-card" aria-label="Contact information">
+                <div class="footer-card-title" aria-hidden="true">
+                    <svg class="footer-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.22 1.21.49 2.54.76 3.92.76.55 0 1 .45 1 1v3.5c0 .55-.45 1-1 1A16 16 0 012 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.38.27 2.71.76 3.92.14.35.05.75-.22 1.02l-2.2 2.2z"></path>
+                    </svg>
+                </div>
+                <div class="footer-card-items">
+                    <a class="footer-item" href="tel:+49 152185355929" title="Call +49 1521 8535 5929">+49 176 878 20948</a>
+                    <span class="footer-sep">•</span>
+                    <a class="footer-item" href="tel:+34 610 6073 95" title="Call +34 610 6073 95">+34 610 6073 95</a>
+                    <span class="footer-sep">•</span>
+                    <a class="footer-item" href="mailto:info@sharehopes.org" title="Email info@sharehopes.org">
+                        <svg class="footer-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 5h18v14H3z"></path>
+                            <path d="M3 5l9 7 9-7"></path>
+                        </svg>
+                        info@sharehopes.org
+                    </a>
+                </div>
+            </div>
+            <div class="footer-social">
+                <span class="footer-social-label" id="follow-us">Follow us</span>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" aria-label="Facebook" title="Facebook" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M22.675 0h-21.35C0.596 0 0 0.596 0 1.325v21.351C0 23.404 0.596 24 1.325 24h11.495v-9.294H9.847v-3.622h2.973V8.413c0-2.943 1.796-4.549 4.422-4.549 1.256 0 2.337 0.093 2.653 0.135v3.077l-1.822 0.001c-1.429 0-1.706 0.679-1.706 1.676v2.197h3.411l-0.444 3.622h-2.967V24h6.625c0.729 0 1.325-0.596 1.325-1.325V1.325C24 0.596 23.404 0 22.675 0z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon" aria-label="X (Twitter)" title="X" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M17.63 3H21L13.5 12.39 18.94 21H15.57L10.82 13.86 5.56 21H3L10.88 11.11 6.08 3h3.37l4.28 6.86L17.63 3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm6.5-1.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-copy" id="copyright">© 2025 Share Hopes</div>
+        </div>
+    </footer>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="assets/js/script.js" onload="console.log('script.js loaded successfully')" onerror="console.error('Failed to load script.js')"></script>
+    <!-- Stripe.js for Checkout -->
+    <script src="https://js.stripe.com/v3" onload="console.log('Stripe.js loaded')" onerror="console.error('Failed to load Stripe.js')"></script>
+    
+    <script>
+        // Wait for DOM and external scripts to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const progressSteps = document.querySelectorAll('.progress-step');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Update tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update tab contents
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                    
+                    // Update progress bar
+                    const step = this.getAttribute('data-tab');
+                    updateProgressBar(step);
+                });
+            });
+            
+            // Next button functionality
+            const nextButtons = document.querySelectorAll('.next-tab');
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const nextTab = this.getAttribute('data-next');
+                    
+                    // Update tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelector(`.tab[data-tab="${nextTab}"]`).classList.add('active');
+                    
+                    // Update tab contents
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.getElementById(`${nextTab}-tab`).classList.add('active');
+                    
+                    // Update progress bar
+                    updateProgressBar(nextTab);
+                });
+            });
+            
+            // Previous button functionality
+            const prevButtons = document.querySelectorAll('.prev-tab');
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const prevTab = this.getAttribute('data-prev');
+                    
+                    // Update tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelector(`.tab[data-tab="${prevTab}"]`).classList.add('active');
+                    
+                    // Update tab contents
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.getElementById(`${prevTab}-tab`).classList.add('active');
+                    
+                    // Update progress bar
+                    updateProgressBar(prevTab);
+                });
+            });
+            
+            // Update progress bar based on active tab
+            function updateProgressBar(activeTab) {
+                progressSteps.forEach(step => step.classList.remove('active'));
+                if (activeTab === 'donation') {
+                    document.querySelector('.progress-step[data-step="1"]').classList.add('active');
+                } else if (activeTab === 'volunteer') {
+                    document.querySelector('.progress-step[data-step="2"]').classList.add('active');
+                }
+            }
+            
+            // Handle donation amount buttons
+            const amountButtons = document.querySelectorAll('.amount-btn');
+            const customAmountInput = document.getElementById('customAmount');
+            
+            amountButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove selected class from all buttons
+                    amountButtons.forEach(btn => btn.classList.remove('selected'));
+                    
+                    // Add selected class to clicked button
+                    this.classList.add('selected');
+                    
+                    // Clear custom amount input
+                    customAmountInput.value = '';
+                });
+            });
+            
+            // Clear selected buttons when custom amount is entered
+            if (customAmountInput) {
+                customAmountInput.addEventListener('input', function() {
+                    amountButtons.forEach(btn => btn.classList.remove('selected'));
+                });
+            }
+            
+            // Form submission
+            const form = document.getElementById('involvement-form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Basic validation
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                const email = document.getElementById('email').value;
+                
+                if (!firstName || !lastName || !email) {
+                    alert('Please fill in all required fields (marked with *)');
+                    // Switch to volunteer tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelector('.tab[data-tab="volunteer"]').classList.add('active');
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.getElementById('volunteer-tab').classList.add('active');
+                    updateProgressBar('volunteer');
+                    return;
+                }
+                
+                // Check if donation amount is selected
+                const selectedAmount = document.querySelector('.amount-btn.selected');
+                const customAmount = customAmountInput ? customAmountInput.value : '';
+                const requireDonationAmount = (amountButtons && amountButtons.length > 0) || !!customAmountInput;
+                if (requireDonationAmount && !selectedAmount && !customAmount) {
+                    alert('Please select or enter a donation amount');
+                    // Switch to donation tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelector('.tab[data-tab="donation"]').classList.add('active');
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.getElementById('donation-tab').classList.add('active');
+                    updateProgressBar('donation');
+                    return;
+                }
+                
+                // Compose form data and send email
+                const payload = window.MailSender ? window.MailSender.composeDataFromForm(form) : {};
+                payload.donationAmount = customAmount || (selectedAmount ? (selectedAmount.getAttribute('data-amount') || selectedAmount.textContent) : '');
+
+                const showSuccessModal = () => {
+                    const overlay = document.getElementById('success-modal');
+                    if (!overlay) return;
+                    overlay.classList.add('show');
+                    overlay.setAttribute('aria-hidden', 'false');
+                };
+
+                const hideSuccessModal = () => {
+                    const overlay = document.getElementById('success-modal');
+                    if (!overlay) return;
+                    overlay.classList.remove('show');
+                    overlay.setAttribute('aria-hidden', 'true');
+                };
+
+                // Close handlers
+                const modalCloseBtn = document.getElementById('modal-close-btn');
+                if (modalCloseBtn) {
+                    modalCloseBtn.addEventListener('click', hideSuccessModal);
+                }
+                const modalOverlay = document.getElementById('success-modal');
+                if (modalOverlay) {
+                    modalOverlay.addEventListener('click', (e) => {
+                        if (e.target === modalOverlay) hideSuccessModal();
+                    });
+                }
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') hideSuccessModal();
+                });
+
+                const afterSuccess = () => {
+                    hideSendingModal();
+                    showSuccessModal();
+                    form.reset();
+                    amountButtons.forEach(btn => btn.classList.remove('selected'));
+                    // Reset to volunteer tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelector('.tab[data-tab="volunteer"]').classList.add('active');
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.getElementById('volunteer-tab').classList.add('active');
+                    updateProgressBar('volunteer');
+                };
+
+                const onError = (err) => {
+                    console.error('Failed to send involvement email', err);
+                    hideSendingModal();
+                    alert('We could not send your email automatically. Please try again or email us at info@sharehopes.org.');
+                };
+
+                const showSendingModal = () => {
+                    const overlay = document.getElementById('sending-modal');
+                    if (!overlay) return;
+                    overlay.classList.add('show');
+                    overlay.setAttribute('aria-hidden', 'false');
+                };
+
+                const hideSendingModal = () => {
+                    const overlay = document.getElementById('sending-modal');
+                    if (!overlay) return;
+                    overlay.classList.remove('show');
+                    overlay.setAttribute('aria-hidden', 'true');
+                };
+
+                if (window.MailSender && typeof window.MailSender.sendEmail === 'function') {
+                    showSendingModal();
+                    window.MailSender.sendEmail(payload).then(afterSuccess).catch(onError);
+                } else {
+                    // As a fallback, proceed with success flow
+                    afterSuccess();
+                }
+            });
+            
+            // Language dropdown initialization is handled globally in script.js
+        });
+    </script>
+    <!-- EmailJS CDN for client-side email send (optional, configure keys) -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <!-- Mail sender module -->
+    <script src="assets/js/mail-sender.js"></script>
+</body>
+</html>
