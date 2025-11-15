@@ -592,6 +592,7 @@ section h2::after {
     display: flex;
     align-items: center;
     gap: 10px;
+    display: none;
 }
 .footer-social-label {
     font-weight: 600;
