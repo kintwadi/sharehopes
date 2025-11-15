@@ -2,22 +2,79 @@
 // Usage: MailSender.sendEmail(data) where data contains form fields
 (function() {
 
-  window.EMAILJS_PUBLIC_KEY = 'FoAXjwHBBNLH0xjR6';
-  window.EMAILJS_SERVICE_ID = 'service_3y7lnma';
-  window.EMAILJS_TEMPLATE_ID = 'template_pqpy4yg';
+  const WORKER_URL = 'https://solitary-morning-4035.antmabiala.workers.dev/';
+  const CONFIG_URL = WORKER_URL + 'config';
   const EMAIL_TO = 'info@sharehopes.org';
+  let EMAILJS_PUBLIC_KEY = '';
+  let EMAILJS_SERVICE_ID = '';
+  let EMAILJS_TEMPLATE_ID = '';
+  let emailJsReady = false;
+  let workerFailed = false;
 
-  // Optional EmailJS configuration via global variables
-  const EMAILJS_PUBLIC_KEY = window.EMAILJS_PUBLIC_KEY || '';
-  const EMAILJS_SERVICE_ID = window.EMAILJS_SERVICE_ID || '';
-  const EMAILJS_TEMPLATE_ID = window.EMAILJS_TEMPLATE_ID || '';
+  async function submitToWorker(data) {
+    if (workerFailed) {
+      throw new Error('Worker previously failed');
+    }
+    
+    try {
+      const message = buildMessage(data);
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: `${data.firstName || ''} ${data.lastName || ''}`.trim(),
+          email: data.email || '',
+          message: message
+        })
+      });
 
-  const hasEmailJS = typeof window.emailjs !== 'undefined';
- 
-  const emailJsConfigured = hasEmailJS && EMAILJS_PUBLIC_KEY && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID;
+      console.log('Worker response status:', res.status);
 
-  if (emailJsConfigured) {
-    try { window.emailjs.init(EMAILJS_PUBLIC_KEY); } catch (e) { console.warn('EmailJS init failed', e); }
+      const bodyText = await res.text();
+      console.log('Worker response bodyText:', bodyText);
+      
+      if (!res.ok) {
+        console.error('Worker error response:', res.status, bodyText);
+        throw new Error(`Worker error: ${res.status} ${bodyText}`);
+      }
+      
+      return bodyText;
+    } catch (e) {
+      console.warn('Cloudflare Worker submission failed:', e.message);
+      workerFailed = true;
+      throw e;
+    }
+  }
+
+  async function loadEmailJsConfig() {
+    try {
+      const res = await fetch(CONFIG_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ purpose: 'emailjs-config' })
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const cfg = await res.json().catch(() => ({ publicKey: '', serviceId: '', templateId: '' }));
+      EMAILJS_PUBLIC_KEY = cfg.publicKey || window.EMAILJS_PUBLIC_KEY || '';
+      EMAILJS_SERVICE_ID = cfg.serviceId || window.EMAILJS_SERVICE_ID || '';
+      EMAILJS_TEMPLATE_ID = cfg.templateId || window.EMAILJS_TEMPLATE_ID || '';
+      return cfg;
+    } catch (e) {
+      EMAILJS_PUBLIC_KEY = window.EMAILJS_PUBLIC_KEY || '';
+      EMAILJS_SERVICE_ID = window.EMAILJS_SERVICE_ID || '';
+      EMAILJS_TEMPLATE_ID = window.EMAILJS_TEMPLATE_ID || '';
+      return { publicKey: EMAILJS_PUBLIC_KEY, serviceId: EMAILJS_SERVICE_ID, templateId: EMAILJS_TEMPLATE_ID };
+    }
+  }
+
+  async function ensureEmailJsReady() {
+    if (emailJsReady) return true;
+    await loadEmailJsConfig();
+    const hasEmailJS = typeof window.emailjs !== 'undefined';
+    if (hasEmailJS && EMAILJS_PUBLIC_KEY) {
+      try { window.emailjs.init(EMAILJS_PUBLIC_KEY); emailJsReady = true; } catch (e) {}
+    }
+    return emailJsReady;
   }
 
   function getSelectText(selectEl) {
@@ -86,29 +143,40 @@
     return lines.join('\n');
   }
 
-  function sendEmail(data) {
+  async function sendEmail(data) {
     const subject = `New Involvement: ${data.firstName || ''} ${data.lastName || ''}`.trim();
     const message = buildMessage(data);
 
-    if (emailJsConfigured) {
-      return window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        to_email: EMAIL_TO,
-        subject,
-        message,
-        // pass fields to template if desired
-        ...data
-      });
-    } else {
-      // Fallback: open mail client with prefilled email
-      const mailto = `mailto:${EMAIL_TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
-      try {
-        window.location.href = mailto;
-      } catch (e) {
-        console.warn('mailto fallback failed', e);
+    try {
+      const ready = await ensureEmailJsReady();
+      if (ready && EMAILJS_PUBLIC_KEY && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID) {
+        await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          to_email: EMAIL_TO,
+          subject,
+          message,
+          ...data
+        });
+        return { success: true, method: 'emailjs' };
       }
-      // Resolve immediately so UI proceeds
-      return Promise.resolve({ fallback: 'mailto' });
+    } catch (e) {
+      console.warn('EmailJS send failed:', e.message);
     }
+
+    try {
+      await submitToWorker({ ...data });
+      return { success: true, method: 'worker' };
+    } catch (e) {
+      console.warn('Worker submission failed, falling back to mailto:', e.message);
+    }
+
+    const mailto = `mailto:${EMAIL_TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+    try {
+      window.location.href = mailto;
+    } catch (fallbackError) {
+      console.warn('mailto fallback also failed:', fallbackError.message);
+      throw new Error('All submission methods failed');
+    }
+    return { fallback: 'mailto' };
   }
 
   window.MailSender = {
