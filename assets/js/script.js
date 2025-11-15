@@ -1078,3 +1078,5 @@ function setupLogoNavigation() {
     console.error('Failed to initialize language dropdown', err);
   }
 });
+
+
