@@ -27,12 +27,7 @@
           message: message
         })
       });
-
-      console.log('Worker response status:', res.status);
-
       const bodyText = await res.text();
-      console.log('Worker response bodyText:', bodyText);
-      
       if (!res.ok) {
         console.error('Worker error response:', res.status, bodyText);
         throw new Error(`Worker error: ${res.status} ${bodyText}`);
